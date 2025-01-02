@@ -1,8 +1,5 @@
 import type { Metadata } from 'next'
 import '@/styles/globals.css'
-import { Header } from '@/components/layout/Header'
-import { Footer } from '@/components/layout/Footer'
-import ProgressBar from '@/components/ProgressBar'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://subscriptionx.com'
 
@@ -52,10 +49,7 @@ export default function RootLayout({
     return (
         <html lang='tr'>
             <body>
-                <ProgressBar />
-                <Header />
                 {children}
-                <Footer />
             </body>
         </html>
     )

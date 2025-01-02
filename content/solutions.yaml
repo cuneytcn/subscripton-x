@@ -1,0 +1,41 @@
+title: Web Sitesi ve Yazılım Çözümleri
+description: >-
+  İşletmenizin ihtiyaçlarına özel, profesyonel web çözümleri. Başlangıç
+  fiyatlarımızı inceleyin.
+plans:
+  - name: Kurumsal Web Sitesi
+    price: '14.999'
+    slug: kurumsal-web-sitesi
+    description: Profesyonel kurumsal web sitesi çözümleri
+    popular: false
+    features:
+      - Özel Tasarım
+      - Mobil Uyumlu Tasarım
+      - SEO Optimizasyonu
+      - Yönetim Paneli
+      - İletişim Formu
+      - Google Analytics Entegrasyonu
+  - name: E-Ticaret Sitesi
+    price: '24.999'
+    slug: e-ticaret-sitesi
+    description: Kapsamlı e-ticaret çözümleri
+    popular: true
+    features:
+      - 'Özel E-ticaret Tasarımı  '
+      - Mobil Uyumlu Tasarım
+      - SEO Optimizasyonu
+      - Gelişmiş Yönetim Paneli
+      - Ödeme Sistemi Entegrasyonu
+      - Kargo Entegrasyonu
+  - name: Özel Yazılım
+    price: '49.999'
+    slug: ozel-yazilim
+    description: İşletmenize özel yazılım çözümleri
+    popular: false
+    features:
+      - İhtiyaca Özel Analiz
+      - Özel Tasarım ve Geliştirme
+      - API Entegrasyonları
+      - Veritabanı Tasarımı
+      - Gelişmiş Güvenlik
+      - Performans Optimizasyonu

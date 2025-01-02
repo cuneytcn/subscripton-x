@@ -1,0 +1,17 @@
+title: İletişime Geçin
+description: Projeniz için ücretsiz danışmanlık alın. En kısa sürede size dönüş yapalım.
+contactInfo:
+  - icon: Phone
+    title: Telefon
+    description: +90 531 747 65 04
+    href: tel:+905317476504
+  - icon: Mail
+    title: E-posta
+    description: hello@subscriptionx.co
+    href: mailto:hello@subscriptionx.co
+  - icon: MapPin
+    title: Adres
+    description: İzmir, Türkiye
+    href: https://maps.google.com/?q=İzmir
+mapUrl: >-
+  https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d100959.98406789821!2d27.142833399999998!3d38.418677!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14bbd862a762cacd%3A0x628cbba1a59ce8fe!2zxLB6bWly!5e0!3m2!1str!2str!4v1680000000000!5m2!1str!2str

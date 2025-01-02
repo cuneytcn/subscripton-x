@@ -1,12 +1,19 @@
 'use client'
 
+import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
-import Image from 'next/image'
-import Link from 'next/link'
 
-export const Hero = () => {
+interface HeroProps {
+    hero : any
+}
+
+
+export const Hero = ({ hero }: HeroProps) => {
+
+
     return (
         <section className='relative overflow-hidden bg-white pt-32 lg:pt-40'>
             <div className='container relative mx-auto px-4'>
@@ -20,11 +27,11 @@ export const Hero = () => {
                         {/* Badge */}
                         <div className='mb-8 hidden items-center gap-2 rounded-full bg-gray-50 px-4 py-2 md:inline-flex'>
                             <span className='text-primary-600 text-sm font-medium'>
-                                Web Tasarım & Yazılım
+                                {hero?.title}
                             </span>
                             <span className='h-1 w-1 rounded-full bg-gray-300' />
                             <span className='text-sm text-gray-600'>
-                                2025 Özel Fiyatlar
+                                {hero?.subtitle}
                             </span>
                         </div>
 
@@ -109,7 +116,7 @@ export const Hero = () => {
                             <div className='flex items-center gap-3'>
                                 <div className='bg-primary-50 rounded-lg p-2'>
                                     <div className='text-primary-600 text-sm font-medium'>
-                                        %40
+                                        {hero?.discountPercentage}
                                     </div>
                                 </div>
                                 <div className='text-sm'>
@@ -117,7 +124,7 @@ export const Hero = () => {
                                         Yeni Yıla Özel İndirim
                                     </div>
                                     <div className='text-gray-600'>
-                                        31 Ocak'a Kadar
+                                        {hero?.discountEndDate}'a kadar
                                     </div>
                                 </div>
                             </div>
