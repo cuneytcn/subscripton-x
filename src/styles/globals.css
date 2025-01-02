@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    * {
+        @apply outline-none selection:bg-blue-200;
+    }
+
+    body {
+        @apply font-default min-h-dvh w-full antialiased;
+    }
+}
