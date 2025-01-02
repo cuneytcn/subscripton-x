@@ -1,15 +1,15 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Dialog, Transition } from '@headlessui/react'
+
 import { Menu, X, ArrowRight, Sparkles } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Fragment, useState } from 'react'
+import {  useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useClickOutside } from '@/hooks/useClickOutside'
 import { usePreventScroll } from '@/hooks/usePreventScroll'
-
+import { Button } from '@/components/ui/button'
+    
 const navLinks = [
     { name: 'Ana Sayfa', href: '/' },
     { name: 'Hizmetler', href: '/services' },
