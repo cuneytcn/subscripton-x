@@ -95,7 +95,12 @@ export default function ServicesPage() {
         <main className='pb-20 pt-32'>
             <div className='container mx-auto px-4'>
                 {/* Hero Section */}
-                <div className='mb-20 text-center'>
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className='mb-20 text-center'
+                >
                     <h1 className='mb-6 text-5xl font-bold md:text-6xl'>
                         Hizmetlerimiz
                     </h1>
@@ -104,20 +109,26 @@ export default function ServicesPage() {
                         ihtiyaç duyduğu tüm tasarım ve yazılım hizmetlerini
                         sunuyoruz.
                     </p>
-                </div>
+                </motion.div>
 
                 {/* Services Grid */}
-                <div className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'>
+                <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className='grid gap-8 md:grid-cols-2 lg:grid-cols-3'
+                >
                     {services.map((service, index) => (
                         <motion.div
                             key={service.title}
                             initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            animate={{ opacity: 1, y: 0 }}
                             transition={{
                                 duration: 0.5,
-                                delay: index * 0.1,
+                                delay: index * 0.1 + 0.3,
                             }}
-                            className='group rounded-2xl bg-white p-8 shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl'>
+                            className='group rounded-2xl bg-white p-8 shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl'
+                        >
                             <div className='mb-6 inline-block rounded-lg bg-primary-100 p-3 text-primary-600'>
                                 {service.icon}
                             </div>
@@ -152,7 +163,7 @@ export default function ServicesPage() {
                             </Button> */}
                         </motion.div>
                     ))}
-                </div>
+                </motion.div>
             </div>
         </main>
     )

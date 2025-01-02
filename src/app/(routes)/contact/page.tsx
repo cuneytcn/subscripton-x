@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
-import { Suspense } from 'react'
+import { Suspense, useState } from 'react'
+import { Alert } from '@/components/ui/Alert'
 
 const contactInfo = [
     {
@@ -16,8 +17,8 @@ const contactInfo = [
     {
         icon: <Mail className='h-6 w-6' />,
         title: 'E-posta',
-        description: 'hello@subscriptionx.com',
-        href: 'mailto:hello@subscriptionx.com',
+        description: 'hello@subscriptionx.co',
+        href: 'mailto:hello@subscriptionx.co',
     },
     {
         icon: <MapPin className='h-6 w-6' />,
@@ -30,12 +31,70 @@ const contactInfo = [
 function ContactContent() {
     const searchParams = useSearchParams()
     const plan = searchParams.get('plan')
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [alert, setAlert] = useState<{
+        type: 'success' | 'error'
+        message: string
+    } | null>(null)
+    const [formData, setFormData] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        message: plan ? `${plan} planı hakkında bilgi almak istiyorum.` : '',
+    })
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        setIsSubmitting(true)
+
+        try {
+            // Form verilerini backend'e gönderme işlemi
+            console.log('Form data:', {
+                ...formData,
+                plan: plan || undefined,
+            })
+            
+            // Başarılı gönderim sonrası formu temizle
+            setFormData({
+                firstName: '',
+                lastName: '',
+                email: '',
+                phone: '',
+                message: '',
+            })
+            
+            setAlert({
+                type: 'success',
+                message: 'Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.',
+            })
+
+            // 5 saniye sonra alert'i kaldır
+            setTimeout(() => setAlert(null), 5000)
+        } catch (error) {
+            console.error('Error submitting form:', error)
+            setAlert({
+                type: 'error',
+                message: 'Mesajınız gönderilemedi. Lütfen daha sonra tekrar deneyin.',
+            })
+            setTimeout(() => setAlert(null), 5000)
+        } finally {
+            setIsSubmitting(false)
+        }
+    }
 
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}>
+            {alert && (
+                <Alert
+                    type={alert.type}
+                    message={alert.message}
+                    onClose={() => setAlert(null)}
+                />
+            )}
             <div className='mb-12 text-center'>
                 <h1 className='mb-4 text-4xl font-bold md:text-5xl'>
                     İletişime Geçin
@@ -80,7 +139,7 @@ function ContactContent() {
                     <h2 className='mb-6 text-2xl font-bold'>
                         Mesaj Gönderin
                     </h2>
-                    <form className='space-y-6'>
+                    <form onSubmit={handleSubmit} className='space-y-6'>
                         <div className='grid gap-6 md:grid-cols-2'>
                             <div>
                                 <label
@@ -91,8 +150,11 @@ function ContactContent() {
                                 <input
                                     type='text'
                                     id='firstName'
+                                    required
                                     className='w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20'
                                     placeholder='Adınız'
+                                    value={formData.firstName}
+                                    onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
                                 />
                             </div>
                             <div>
@@ -104,8 +166,11 @@ function ContactContent() {
                                 <input
                                     type='text'
                                     id='lastName'
+                                    required
                                     className='w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20'
                                     placeholder='Soyadınız'
+                                    value={formData.lastName}
+                                    onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
                                 />
                             </div>
                         </div>
@@ -119,8 +184,11 @@ function ContactContent() {
                             <input
                                 type='email'
                                 id='email'
+                                required
                                 className='w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20'
                                 placeholder='ornek@email.com'
+                                value={formData.email}
+                                onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                             />
                         </div>
 
@@ -133,8 +201,11 @@ function ContactContent() {
                             <input
                                 type='tel'
                                 id='phone'
+                                required
                                 className='w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20'
                                 placeholder='(5XX) XXX XX XX'
+                                value={formData.phone}
+                                onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
                             />
                         </div>
 
@@ -173,21 +244,21 @@ function ContactContent() {
                             <textarea
                                 id='message'
                                 rows={4}
+                                required
                                 className='w-full rounded-lg border border-gray-300 px-4 py-2.5 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20'
                                 placeholder='Mesajınızı yazın...'
-                                defaultValue={
-                                    plan ?
-                                        `${plan} planı hakkında bilgi almak istiyorum.`
-                                    :   ''
-                                }
+                                value={formData.message}
+                                onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
                             />
                         </div>
 
                         <Button
                             type='submit'
                             size='lg'
-                            className='w-full'>
-                            Gönder
+                            className='w-full'
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? 'Gönderiliyor...' : 'Gönder'}
                         </Button>
                     </form>
                 </motion.div>

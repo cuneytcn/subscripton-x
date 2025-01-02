@@ -5,6 +5,8 @@ import { motion } from 'framer-motion'
 import { Facebook, Instagram, Linkedin, Twitter } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState } from 'react'
+import { Alert } from '@/components/ui/Alert'
 
 const footerLinks = [
     {
@@ -69,6 +71,66 @@ const socialLinks = [
 ]
 
 export const Footer = () => {
+    const [email, setEmail] = useState('')
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isSubmitted, setIsSubmitted] = useState(false)
+    const [alert, setAlert] = useState<{
+        type: 'success' | 'error'
+        message: string
+    } | null>(null)
+
+    const validateEmail = (email: string) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        return emailRegex.test(email)
+    }
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        setIsSubmitted(true)
+
+        // Email validasyonu sadece form gönderildiğinde
+        if (!email.trim() || !validateEmail(email)) {
+            setAlert({
+                type: 'error',
+                message: 'Lütfen geçerli bir e-posta adresi girin.'
+            })
+            setTimeout(() => setAlert(null), 5000)
+            return
+        }
+
+        setIsSubmitting(true)
+
+        try {
+            // API çağrısı burada yapılacak
+            console.log('Subscribing email:', email)
+            
+            setAlert({
+                type: 'success',
+                message: 'Bültenimize başarıyla abone oldunuz!'
+            })
+            setEmail('')
+            setIsSubmitted(false)
+            
+            setTimeout(() => setAlert(null), 5000)
+        } catch (error) {
+            console.error('Subscription error:', error)
+            setAlert({
+                type: 'error',
+                message: 'Bir hata oluştu. Lütfen daha sonra tekrar deneyin.'
+            })
+        } finally {
+            setIsSubmitting(false)
+        }
+    }
+
+    // Input değiştiğinde alert'i temizle
+    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value)
+        if (isSubmitted) {
+            setAlert(null)
+        }
+    }
+
     return (
         <footer className='bg-gray-50 pt-24'>
             <div className='container mx-auto px-4'>
@@ -89,13 +151,21 @@ export const Footer = () => {
                             En son güncellemeler ve hizmetlerimiz hakkında bilgi
                             almak için bültenimize abone olun.
                         </p>
-                        <form className='flex flex-col gap-2 md:flex-row'>
+                        <form onSubmit={handleSubmit} className='flex flex-col gap-2 md:flex-row'>
                             <input
                                 type='email'
+                                required
+                                value={email}
+                                onChange={handleEmailChange}
                                 placeholder='E-posta adresiniz'
                                 className='focus:border-primary-500 focus:ring-primary-500/20 flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2'
                             />
-                            <Button type='submit'>Abone Ol</Button>
+                            <Button 
+                                type='submit'
+                                disabled={isSubmitting}
+                            >
+                                {isSubmitting ? 'Gönderiliyor...' : 'Abone Ol'}
+                            </Button>
                         </form>
                     </div>
 
@@ -140,6 +210,14 @@ export const Footer = () => {
                     </div>
                 </div>
             </div>
+
+            {alert && (
+                <Alert
+                    type={alert.type}
+                    message={alert.message}
+                    onClose={() => setAlert(null)}
+                />
+            )}
         </footer>
     )
 }

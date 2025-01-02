@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { Check, Shield, Users, Zap } from 'lucide-react'
+import Link from 'next/link'
 
 const features = [
     {
@@ -52,9 +53,11 @@ export default function EnterprisePage() {
                         güvenli çözümler sunuyoruz.
                     </p>
                     <div className='flex flex-col items-center justify-center gap-4 sm:flex-row'>
-                        <Button size='lg'>Hemen Görüşme Talep Et</Button>
+                        <Button size='lg'>
+                            <Link href='/contact?type=enterprise'>Hemen Görüşme Talep Et</Link>
+                        </Button>
                         <Button variant='outline' size='lg'>
-                            Çözümlerimizi İncele
+                            <Link href="/features">Çözümlerimizi İncele</Link>
                         </Button>
                     </div>
                 </div>

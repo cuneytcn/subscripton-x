@@ -39,6 +39,9 @@ export const metadata: Metadata = {
         siteName: 'SubscriptionX',
     },
     metadataBase: new URL(baseUrl),
+    icons: {
+        icon: '/favicon.svg',
+    },
 }
 
 export default function RootLayout({

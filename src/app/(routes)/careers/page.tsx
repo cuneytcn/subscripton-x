@@ -1,9 +1,11 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
+import { CareerModal } from '@/components/modals/CareerModal'
 import { motion } from 'framer-motion'
 import { ArrowRight, Mail } from 'lucide-react'
 import Link from 'next/link'
+import { useState } from 'react'
 
 const positions = [
     {
@@ -64,7 +66,7 @@ const positions = [
     },
 ]
 
-const NoPositions = () => {
+const NoPositions = ({ onOpenModal }: { onOpenModal: () => void }) => {
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -83,8 +85,8 @@ const NoPositions = () => {
                 sizinle iletişime geçelim.
             </p>
             <div className='flex flex-col items-center justify-center gap-4 sm:flex-row'>
-                <Button size='lg'>
-                    <Link href='/contact?subject=cv'>Özgeçmişini Gönder</Link>
+                <Button size='lg' onClick={onOpenModal}>
+                    Özgeçmişini Gönder
                 </Button>
                 <Button variant='outline' size='lg'>
                     Şirketi Keşfet
@@ -95,6 +97,7 @@ const NoPositions = () => {
 }
 
 export default function CareersPage() {
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const hasOpenPositions = positions.length > 0
 
     return (
@@ -181,15 +184,18 @@ export default function CareersPage() {
                                 Özgeçmişinizi gönderin, uygun bir pozisyon
                                 açıldığında sizinle iletişime geçelim.
                             </p>
-                            <Button size='lg'>
-                                <Link href='/contact?subject=cv'>
-                                    Özgeçmişini Gönder
-                                </Link>
+                            <Button size='lg' onClick={() => setIsModalOpen(true)}>
+                                Özgeçmişini Gönder
                             </Button>
                         </div>
                     </>
-                :   <NoPositions />}
+                :   <NoPositions onOpenModal={() => setIsModalOpen(true)} />}
             </motion.div>
+
+            <CareerModal 
+                isOpen={isModalOpen} 
+                onClose={() => setIsModalOpen(false)} 
+            />
         </main>
     )
 }

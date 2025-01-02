@@ -42,7 +42,7 @@ export const Header = () => {
                         </Link>
 
                         {/* Desktop Navigation */}
-                        <nav className='hidden items-center gap-8 md:flex'>
+                        <nav className='hidden items-center gap-8 lg:flex'>
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.name}
@@ -54,7 +54,7 @@ export const Header = () => {
                         </nav>
 
                         {/* Desktop CTA Button */}
-                        <div className='hidden items-center gap-4 md:flex'>
+                        <div className='hidden items-center gap-4 md:flex ml-auto lg:ml-0'>
                             <Button
                                 size='lg'
                                 variant='outline'
@@ -72,7 +72,7 @@ export const Header = () => {
                         {/* Mobile Menu Button */}
                         <button
                             ref={(el) => addToRefs(el)}
-                            className='relative h-6 w-6 text-gray-600 hover:text-gray-900 md:hidden'
+                            className='relative h-6 w-6 text-gray-600 hover:text-gray-900 lg:hidden ml-6'
                             onClick={() => setIsOpen(!isOpen)}>
                             <AnimatePresence mode='wait'>
                                 {isOpen ?
@@ -107,7 +107,7 @@ export const Header = () => {
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.2 }}
-                            className='absolute left-0 right-0 overflow-hidden bg-white shadow-lg md:hidden'>
+                            className='absolute left-0 right-0 overflow-hidden bg-white shadow-lg lg:hidden'>
                             <nav className='container mx-auto flex flex-col gap-4 px-4 py-6'>
                                 {navLinks.map((link) => (
                                     <Link
